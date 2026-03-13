@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Life Expectancy</title>
+    <meta name="author" content="LIU Tingsen">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./style/main.css">
+    <link rel="stylesheet" href="./style/pages/page11.css">
+    <link rel="stylesheet" href="./style/pages/page21.css">
+    <link rel="stylesheet" href="./style/pages/page22.css">
+    <link rel="stylesheet" href="./style/pages/page31.css">
+    <link rel="stylesheet" href="./style/pages/page41.css">
+</head>
+
+<body>
+    <main id="viewport">
+        <div id="vTrack" class="v-track">
+            <section class="v-page">
+                <div class="h-track">
+                    <article class="h-page">
+                        <h1>Cover</h1>
+                    </article>
+                </div>
+            </section>
+
+            <section class="v-page">
+                <div class="h-track">
+                    <!-- Life Expectancy VS Gender (1 - 1) -->
+                    <article class="h-page page-11">
+                        <header class="page-11-header">
+                            <h2>Life Expectancy VS Gender</h2>
+                        </header>
+
+                        <div class="page-11-content">
+                            <section id="d3-gender-chart" class="chart-placeholder" aria-label="D3 chart placeholder">
+                                <p>D3 Chart Placeholder</p>
+                            </section>
+
+                            <aside id="conclusion-panel-11" class="conclusion-placeholder" aria-label="Conclusion placeholder">
+                                <h3>Conclusion</h3>
+                                <p>To be written...</p>
+                            </aside>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="v-page">
+                <div class="h-track">
+                    <!-- Life Expectancy VS Country (2 - 1) -->
+                    <article class="h-page page-21">
+                        <header class="page-21-header">
+                            <h2>Life Expectancy VS Country</h2>
+                        </header>
+
+                        <section class="page-21-intro" aria-label="Chart description">
+                            <p>
+                                This section introduces the global comparison of life expectancy by country.
+                                A world map visualization will be inserted below to help readers quickly compare
+                                regional patterns and identify countries with notably high or low life expectancy.
+                            </p>
+                            <button class="page-21-nav" type="button" data-horizontal-target="1" aria-label="Go to page 2-2">
+                                Scroll Right 2-2 <span aria-hidden="true">→</span>
+                            </button>
+                        </section>
+
+                        <section class="page-21-map" aria-label="World map visualization placeholder">
+                            <div class="page-21-map-placeholder">
+                                <p>World map placeholder</p>
+                            </div>
+                        </section>
+                    </article>
+                    <!-- Life Expectancy VS Country — Top 5 Rankings (2 - 2) -->
+                    <article class="h-page page-22">
+                        <header class="page-21-header">
+                            <h2>Top 5 Countries · Life Expectancy Rankings</h2>
+                        </header>
+
+                        <section class="page-21-intro" aria-label="Chart description">
+                            <p>
+                                The animated bar chart below ranks the top 5 countries by life expectancy each year
+                                from 2000 to 2020. Drag the timeline or press
+                                <strong>Play</strong> to watch how the rankings shift across two decades.
+                            </p>
+                        </section>
+
+                        <section class="page-22-chart" aria-label="Horizontal bar chart placeholder">
+                            <div class="page-22-bars" id="d3-ranking-chart">
+                                <p>Horizontal bar chart placeholder</p>
+                            </div>
+
+                            <div class="page-22-controls">
+                                <button class="page-22-play-btn" type="button"
+                                        id="rankingPlayBtn" aria-label="Play timeline">
+                                    &#9654;
+                                </button>
+                                <input class="page-22-timeline" type="range"
+                                       id="rankingTimeline"
+                                       min="2000" max="2020" value="2000" step="1"
+                                       aria-label="Year timeline" />
+                                <span class="page-22-year-label" id="rankingYearLabel" aria-live="polite">2000</span>
+                            </div>
+                        </section>
+                    </article>
+                </div>
+            </section>
+
+            <section class="v-page">
+                <div class="h-track">
+                    <!-- Special Case: High GDP, Low Life Expectancy (3 - 1) -->
+                    <article class="h-page page-31">
+                        <header class="page-21-header">
+                            <h2>Special Case &middot; High GDP, Low Life Expectancy</h2>
+                        </header>
+
+                        <div class="page-31-body">
+                            <!-- 左栏：分析文字 + 图片 -->
+                            <div class="page-31-analysis">
+                                <div class="page-31-text">
+                                    <p class="page-31-lead">
+                                        GDP高不一定好 &mdash; 你可能活不久了 :(
+                                    </p>
+                                    <p>
+                                        比如美国
+                                    </p>
+                                    <p>
+                                        美国xxxxx
+                                    </p>
+                                    <p>
+                                        <em>Further analysis and data sources to be added here.</em>
+                                    </p>
+                                </div>
+
+                                <figure class="page-31-figure">
+                                    <div class="page-31-image-slot" aria-label="Image placeholder">
+                                        Image / infographic placeholder
+                                    </div>
+                                    <figcaption>Figure caption placeholder</figcaption>
+                                </figure>
+                            </div>
+
+                            <!-- 右栏：两张图表 -->
+                            <div class="page-31-charts">
+                                <div class="page-31-chart-slot" id="d3-chart1" aria-label="GDP vs Life Expectancy scatter chart placeholder">
+                                    <span class="page-31-chart-label">Chart 1</span>
+                                    <p>Chart1</p>
+                                </div>
+                                <div class="page-31-chart-slot" id="d3-chart2" aria-label="Country comparison chart placeholder">
+                                    <span class="page-31-chart-label">Chart 2</span>
+                                    <p>Chart2</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="v-page">
+                <div class="h-track">
+                    <article class="h-page page-41">
+                        <header class="page-21-header">
+                            <h2>Final Summary &middot; Dynamic Radar Overview</h2>
+                        </header>
+
+                        <div class="page-41-body">
+                            <section class="page-41-summary" aria-label="Summary text area">
+                                <div class="page-41-summary-text">
+                                    <p class="page-41-lead">
+                                        总结</p>
+                                    <p>
+                                        右边是雷达图
+                                    </p>
+                                    <p>
+                                        巴拉巴拉巴拉
+                                    </p>
+                                    <p>
+                                        谢谢各位
+                                    </p>
+                                </div>
+                            </section>
+
+                            <section class="page-41-radar" aria-label="Dynamic radar chart placeholder">
+                                <div class="page-41-radar-canvas" id="d3-summary-radar">
+                                    <p>Dynamic radar chart placeholder</p>
+                                </div>
+
+                                <div class="page-41-controls">
+                                    <button class="page-41-play-btn" type="button" id="radarPlayBtn" aria-label="Play radar timeline">
+                                        &#9654;
+                                    </button>
+                                    <input class="page-41-timeline" type="range"
+                                           id="radarTimeline"
+                                           min="2000" max="2020" value="2000" step="1"
+                                           aria-label="Radar year timeline" />
+                                    <span class="page-41-year-label" id="radarYearLabel" aria-live="polite">2000</span>
+                                </div>
+
+                                <p class="page-41-hint">继续下滑可查看团队信息</p>
+                            </section>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <footer id="teamFooter" class="team-footer" aria-label="Team credits">
+            <p>LIU, Tingsen; LIN Xiaoya; WU Yiqian 倾力打造</p>
+        </footer>
+    </main>
+
+    <div id="horizontalDots" class="dots horizontal-dots" aria-label="Horizontal page indicator"></div>
+    <div id="verticalDots" class="dots vertical-dots" aria-label="Vertical layer indicator"></div>
+
+    <!--导入JS脚本-->
+    <script src="./scripts/scroll.js"></script>
+</body>
+</html>
