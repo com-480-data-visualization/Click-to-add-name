@@ -155,22 +155,56 @@ function goHorizontal(nextIndex) {
     lockTransition();
 }
 
+let scrollAccumulatorX = 0;
+let scrollAccumulatorY = 0;
+let lastWheelTime = 0;
+let isScrollingSequence = false;
+
 function handleWheel(event) {
     event.preventDefault();
-    if (Math.abs(event.deltaY) < 6) return;
 
-    if (event.deltaY > 0) {
-        if (currentVIndex === lastVIndex) {
-            revealFooter();
-            return;
+    const currentTime = Date.now();
+
+    // 如果两次滚轮/触摸板事件的间隔超过 60 毫秒，则认为上一次的滑动及惯性已经完全结束，
+    // 用户开始了新一次明确的滑动动作。
+    if (currentTime - lastWheelTime > 40) {
+        isScrollingSequence = false;
+        scrollAccumulatorX = 0;
+        scrollAccumulatorY = 0;
+    }
+    lastWheelTime = currentTime;
+
+    // 如果页面正在翻页动画中，或者当前这拨滑动已经触发过翻页（正在处理惯性尾巴），则忽略后续累加
+    if (isTransitioning || isScrollingSequence) {
+        return;
+    }
+
+    // 累加位移差值
+    scrollAccumulatorX += event.deltaX;
+    scrollAccumulatorY += event.deltaY;
+
+    // 触发翻页的位移阈值
+    const threshold = 40;
+
+    // 优先处理纵向滑动为主的情况
+    if (Math.abs(scrollAccumulatorY) > threshold && Math.abs(scrollAccumulatorY) > Math.abs(scrollAccumulatorX)) {
+        isScrollingSequence = true; // 马上锁定，本次手势带来的后续惯性直接无视
+        if (scrollAccumulatorY > 0) {
+            if (currentVIndex === lastVIndex) revealFooter();
+            else goVertical(currentVIndex + 1);
+        } else {
+            if (isFooterRevealed) hideFooter();
+            else goVertical(currentVIndex - 1);
         }
-        goVertical(currentVIndex + 1);
-    } else {
-        if (isFooterRevealed) {
-            hideFooter();
-            return;
+    } 
+    // 处理横向滑动为主的情况
+    else if (Math.abs(scrollAccumulatorX) > threshold && Math.abs(scrollAccumulatorX) > Math.abs(scrollAccumulatorY)) {
+        isScrollingSequence = true; // 马上锁定
+        if (scrollAccumulatorX > 0) {
+            goHorizontal(currentHIndexByLayer[currentVIndex] + 1);
+        } else {
+            goHorizontal(currentHIndexByLayer[currentVIndex] - 1);
         }
-        goVertical(currentVIndex - 1);
     }
 }
 
