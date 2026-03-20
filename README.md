@@ -69,7 +69,7 @@ However, substantial variance remains even among high-income countries.
 
 ### Related work
 
-While giants like Gapminder (gapminder.org/tools) and the IHME’s GBD Compare (vizhub.healthdata.org/gbd-compare/) offer comprehensive data on health and wealth, they function more like digital encyclopedias than narrative tools. The connection between wealth and preventable death is a story hidden in plain sight. But for most people, uncovering that story requires a tedious trek across platforms that treat human lives like static rows of data. The data is "there," but it isn't always "alive."
+While giants like [Gapminder](gapminder.org/tools) and the IHME’s GBD Compare (vizhub.healthdata.org/gbd-compare/) offer comprehensive data on health and wealth, they function more like digital encyclopedias than narrative tools. The connection between wealth and preventable death is a story hidden in plain sight. But for most people, uncovering that story requires a tedious trek across platforms that treat human lives like static rows of data. The data is "there," but it isn't always "alive."
 
 Our project takes the high-quality data provided by the World Bank Open Data (data.worldbank.org/indicator/SH.DYN.NCOM.ZS). We’ve stripped away the academic density of the World Bank's archives to investigate a singular mystery: The Wealth Paradox. Why do some nations with sky-high GDPs see their citizens die years earlier than those in countries with far fewer resources? By focusing on the 'exceptions', nations like The Bahamas, we look past the spreadsheets to uncover the cultural habits, dietary shifts, and hidden inequalities that determine who actually gets to grow old.
 
