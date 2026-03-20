@@ -34,7 +34,7 @@ https://data.worldbank.org/indicator/SH.DYN.NCOM.ZS
 
 ### Problematic
 
-**Life expectancy** is one of the most widely used indicators of a country’s overall well-being. It reflects not only healthcare quality but also economic conditions, education, public policy, and social inequality. At the same time, economic development — often measured through GDP per capita — is commonly assumed to improve living standards and health outcomes. However, the strength and nature of this relationship is not always straightforward.
+**Life expectancy** is one of the most widely used indicators of a country’s overall well-being. It reflects not only healthcare quality but also economic conditions, education, public policy, and social inequality. At the same time, economic development, often measured through GDP per capita, is commonly assumed to improve living standards and health outcomes. However, the strength and nature of this relationship is not always straightforward.
 
 Our project aims to explore the following central questions:
 - How strongly is GDP per capita associated with life expectancy across countries?
@@ -71,7 +71,7 @@ However, substantial variance remains even among high-income countries.
 
 While giants like Gapminder (gapminder.org/tools) and the IHME’s GBD Compare (vizhub.healthdata.org/gbd-compare/) offer comprehensive data on health and wealth, they function more like digital encyclopedias than narrative tools. The connection between wealth and preventable death is a story hidden in plain sight. But for most people, uncovering that story requires a tedious trek across platforms that treat human lives like static rows of data. The data is "there," but it isn't always "alive."
 
-Our project takes the high-quality data provided by the World Bank Open Data (data.worldbank.org/indicator/SH.DYN.NCOM.ZS). We’ve stripped away the academic density of the World Bank's archives to investigate a singular mystery: The Wealth Paradox. Why do some nations with sky-high GDPs see their citizens die years earlier than those in countries with far fewer resources? By focusing on the 'exceptions'—nations like The Bahamas—we look past the spreadsheets to uncover the cultural habits, dietary shifts, and hidden inequalities that determine who actually gets to grow old.
+Our project takes the high-quality data provided by the World Bank Open Data (data.worldbank.org/indicator/SH.DYN.NCOM.ZS). We’ve stripped away the academic density of the World Bank's archives to investigate a singular mystery: The Wealth Paradox. Why do some nations with sky-high GDPs see their citizens die years earlier than those in countries with far fewer resources? By focusing on the 'exceptions', nations like The Bahamas, we look past the spreadsheets to uncover the cultural habits, dietary shifts, and hidden inequalities that determine who actually gets to grow old.
 
 Visually, we were inspired by the clean, interactive aesthetics of The Pudding (pudding.cool). By bringing GDP, NCD mortality, and gendered longevity into one animated interface, we transform complex public health statistics into an interactive journey.
 
