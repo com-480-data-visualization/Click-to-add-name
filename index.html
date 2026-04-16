@@ -51,10 +51,7 @@
                         </header>
                         <div class="page-11-content">
                             <section id="d3-gender-chart" class="chart-placeholder" aria-label="D3 chart placeholder">
-                                <img src="./assets/Gender.jpg" alt="Gender life expectancy chart" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px; display: block;">
                             </section>
-
-
                             
                             <aside id="conclusion-panel-11" class="conclusion-placeholder" aria-label="Conclusion placeholder">
                                 <h3 style="color: #17486a; margin-bottom: 20px;">The Biological and Social Divide</h3>
@@ -89,14 +86,20 @@
                             <p>
                                 This world map gives you a quick snapshot of global health. You can drag the timeline below to see how major events like economic booms, better medicine, or health crises, have changed life expectancy around the world since the year 2000.
                             </p>
+
+                            <div class="map-controls">
+                                <input type="range" id="year-slider" min="2000" max="2021" value="2000">
+                                <span id="year-display">2000</span>
+                            </div>
+
                             <button class="page-21-nav" type="button" data-horizontal-target="1" aria-label="Go to page 2-2">
                                 Scroll Right for Top 5 <span aria-hidden="true">→</span>
                             </button>
                         </section>
 
                         <section class="page-21-map" aria-label="World map visualization placeholder">
-                            <div class="page-21-map-placeholder" style="display: flex; align-items: center; justify-content: center;">
-                                <img src="./assets/Global Lifespan Map.jpg" alt="Global lifespan map" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px;">
+                            <div id="d3-lifespan-map" class="lifespan" aria-label="Global lifespan choropleth map">
+                                <div id="map-tooltip" class="map-tooltip"></div>
                             </div>
                         </section>
                     </article>
@@ -129,7 +132,7 @@
                                 </button>
                                 <input class="page-22-timeline" type="range"
                                        id="rankingTimeline"
-                                       min="2000" max="2020" value="2000" step="1"
+                                       min="2000" max="2021" value="2000" step="1"
                                        aria-label="Year timeline" />
                                 <span class="page-22-year-label" id="rankingYearLabel" aria-live="polite">2000</span>
                             </div>
@@ -263,5 +266,11 @@
 
     <!--导入JS脚本-->
     <script src="./scripts/scroll.js"></script>
+    <!--loading d3 folder--> 
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <script src="./d3/genderchart.js"></script>
+
+    <script src="./d3/lifespanmap.js"></script>
 </body>
 </html>

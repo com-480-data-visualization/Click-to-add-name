@@ -1,0 +1,1 @@
+//<div class="page-22-bars" id="d3-ranking-chart" style="display: flex; align-items: center; justify-content: center;">

@@ -128,6 +128,19 @@ function lockTransition() {
 }
 
 // 纵向切换：整屏吸附到指定层
+// function goVertical(nextIndex) {
+//     if (isTransitioning) return;
+//     if (nextIndex < 0 || nextIndex >= verticalPages.length) return;
+
+//     currentVIndex = nextIndex;
+//     isFooterRevealed = false;
+//     updateViewportPosition();
+//     renderHorizontalDots();
+//     updateDots();
+//     lockTransition();
+// }
+// scripts/scroll.js
+
 function goVertical(nextIndex) {
     if (isTransitioning) return;
     if (nextIndex < 0 || nextIndex >= verticalPages.length) return;
@@ -138,7 +151,25 @@ function goVertical(nextIndex) {
     renderHorizontalDots();
     updateDots();
     lockTransition();
+
+    if (nextIndex === 1) {
+        // wait 600ms
+        setTimeout(() => {
+            if (typeof window.startGenderAnimation === 'function') {
+                window.startGenderAnimation();
+            }
+        }, 600);
+    }
+    if (nextIndex === 2) { 
+        setTimeout(() => {
+            if (typeof initLifespanMap === 'function') {
+                initLifespanMap();
+            }
+        }, 600); 
+    }
 }
+
+
 
 // 横向切换：仅在当前层内左右翻页
 function goHorizontal(nextIndex) {
