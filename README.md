@@ -77,6 +77,8 @@ Visually, we were inspired by the clean, interactive aesthetics of [The Pudding]
 
 (Note: The datasets utilized in this project have not been explored by our team in any previous ML, ADA, or semester projects).
 
+---
+
 ## Milestone 2 (18th April, 5pm)
 
 **10% of the final grade**
@@ -111,6 +113,8 @@ For this milestone, we have focused on building a robust foundation for our data
 ### Creative Extras
 * **Audio Sonification:** Heartbeat sound effects that scale with data trends.
 * **Personalized Marker:** User-driven data input for statistical comparison.
+
+---
 
 ## Milestone 3 (30th May, 5pm)
 
