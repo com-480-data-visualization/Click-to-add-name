@@ -103,12 +103,12 @@ For this milestone, we have focused on building a robust foundation for our data
 ---
 
 
-#### Core MVP Goals
+### Core MVP Goals
 * Deliver a fully navigable website with structured data storytelling.
 * Functional interactive World Map with a manual year timeline slider.
 * Normalized Radar Chart for individual country health profiles.
 
-#### Creative Extras
+### Creative Extras
 * **Audio Sonification:** Heartbeat sound effects that scale with data trends.
 * **Personalized Marker:** User-driven data input for statistical comparison.
 
