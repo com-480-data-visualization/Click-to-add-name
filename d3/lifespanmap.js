@@ -1,118 +1,119 @@
 let updateMapYear = null;
 
 async function initLifespanMap() {
+    let currentDataLookup = new Map(); // 共享数据变量
     const container = d3.select("#d3-lifespan-map");
-    
-    // 1.initial setting
-    const width = container.node().clientWidth;
-    const height = container.node().clientHeight;
-    container.selectAll("*").remove();
+    const width = container.node().clientWidth ;
+    const height = container.node().clientHeight * 0.9 ; 
 
-    // 2. create canvas
+    container.selectAll("svg").remove();
+
     const svg = container.append("svg")
-        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("viewBox", `0 0 ${width} ${container.node().clientHeight}`)
         .attr("preserveAspectRatio", "xMidYMid meet");
 
-    // 3. load data
     const [lifespanData, geoData] = await Promise.all([
         d3.csv("./data/cleaned_lifespan_map_data.csv"),
         d3.json("./data/world.json")
     ]);
 
-    // 4. projection
-    // fitSize 
     const projection = d3.geoNaturalEarth1()
-        .fitSize([width * 0.9, height * 0.9], geoData) 
-        .translate([width / 2, height / 1.6]); // titlespace
+        .fitSize([width, height], geoData)
+        .translate([width / 2, height / 1.55]);
 
     const path = d3.geoPath().projection(projection);
+    const colorScale = d3.scaleSequential([45, 85], d3.interpolateYlGnBu);
 
-    // 5. color scale
-    const colorScale = d3.scaleSequential()
-        .domain([45, 85]) // age range
-        .interpolator(d3.interpolateYlGnBu); //color yellow green blue
+    // --- 内部函数：绘制 Tooltip 里的微型折线图 ---
+    const drawTooltipChart = (containerId, countryId) => {
+        const history = lifespanData
+            .filter(d => d.SpatialDimValueCode === countryId)
+            .map(d => ({ year: +d.Period, value: +d.Value }))
+            .sort((a, b) => a.year - b.year);
 
-    // 6. mapshape
+        if (history.length === 0) return;
+
+        const w = 160, h = 50;
+        const x = d3.scaleLinear().domain([2000, 2021]).range([0, w]);
+        const y = d3.scaleLinear().domain([d3.min(history, d => d.value)-2, d3.max(history, d => d.value)+2]).range([h, 0]);
+
+        const miniSvg = d3.select(containerId).append("svg").attr("width", w).attr("height", h);
+        
+        // 绘制线条
+        miniSvg.append("path")
+            .datum(history)
+            .attr("fill", "none")
+            .attr("stroke", "#17486a")
+            .attr("stroke-width", 1.5)
+            .attr("d", d3.line().x(d => x(d.year)).y(d => y(d.value)));
+
+        // 标记当前年份的点
+        const curYear = +document.getElementById("year-slider").value;
+        const curPoint = history.find(d => d.year === curYear);
+        if (curPoint) {
+            miniSvg.append("circle")
+                .attr("cx", x(curPoint.year)).attr("cy", y(curPoint.value))
+                .attr("r", 3).attr("fill", "#ffcc00").attr("stroke", "#17486a");
+        }
+    };
+
+    // 绘制国家
     const countries = svg.append("g")
         .selectAll("path")
         .data(geoData.features)
         .join("path")
         .attr("d", path)
         .attr("class", "country-path")
-        .attr("fill", "#e0e0e0") 
+        .attr("fill", "#e0e0e0")
         .attr("stroke", "#ffffff")
         .attr("stroke-width", 0.5)
-  
         .on("mouseover", function(event, d) {
-            
             d3.select(this)
+                .raise() // 提到最顶层
                 .transition().duration(100)
-                .attr("stroke", "#17486a")
-                .attr("stroke-width", 1.5);
-            
-            // 2. 显示 Tooltip
+                .attr("stroke", "#ffcc00") // 黄色高亮
+                .attr("stroke-width", 2);
             d3.select("#map-tooltip").style("visibility", "visible");
         })
         .on("mousemove", function(event, d) {
-            // 获取当前年份
             const year = document.getElementById("year-slider").value;
-            // 从你之前创建的 dataLookup 里拿数值
-            const val = dataLookup.get(d.id); 
-
-            // 计算坐标：相对于 .lifespan 容器
-            const [x, y] = d3.pointer(event);
+            const val = currentDataLookup.get(d.id);
+            const [mx, my] = d3.pointer(event, container.node());
 
             d3.select("#map-tooltip")
-                .style("left", (x + 15) + "px")
-                .style("top", (y + 15) + "px")
+                .style("left", (mx + 20) + "px")
+                .style("top", (my + 20) + "px")
                 .html(`
-                    <div style="font-weight: bold; border-bottom: 1px solid #ccc; margin-bottom: 5px;">
-                        ${d.properties.name || d.id}
-                    </div>
-                    <div>Year: ${year}</div>
-                    <div>Lifespan: <span style="color: #17486a; font-weight: bold;">
-                        ${val ? val.toFixed(1) + ' yrs' : 'N/A'}
-                    </span></div>
+                    <div style="font-weight:bold; color:#17486a;">${d.properties.name || d.id}</div>
+                    <div style="font-size:0.85rem;">${year}: <b>${val ? val.toFixed(1) : 'N/A'} yrs</b></div>
+                    <div id="mini-chart" class="tooltip-chart-container"></div>
                 `);
+
+            drawTooltipChart("#mini-chart", d.id);
         })
         .on("mouseout", function() {
-            // 1. 恢复描边
             d3.select(this)
-                .transition().duration(100)
+                .transition().duration(200)
                 .attr("stroke", "#ffffff")
                 .attr("stroke-width", 0.5);
-            
-            // 2. 隐藏 Tooltip
-            d3.select("#map-tooltip").style("visibility", "hidden");
+            d3.select("#map-tooltip").style("visibility", "hidden").html("");
         });
 
-    // 7. year
     updateMapYear = function(year) {
-        // search and diapay year data
-        const currentYearData = lifespanData.filter(d => +d.Period === year);
-        const dataLookup = new Map(currentYearData.map(d => [d.SpatialDimValueCode, +d.Value]));
-
-        // change color accordingly
-        countries.transition()
-            .duration(400) 
+        const data = lifespanData.filter(d => +d.Period === year);
+        currentDataLookup = new Map(data.map(d => [d.SpatialDimValueCode, +d.Value]));
+        countries.transition().duration(400)
             .attr("fill", d => {
-                const val = dataLookup.get(d.id); 
-                return val ? colorScale(val) : "#f0f0f0";
+                const v = currentDataLookup.get(d.id);
+                return v ? colorScale(v) : "#f0f0f0";
             });
-
     };
 
-    // 8. default 2021
     updateMapYear(2021);
 
-    // 9. slider
-    const slider = document.getElementById("year-slider");
-    const display = document.getElementById("year-display");
-    if (slider) {
-        slider.addEventListener("input", function() {
-            const year = parseInt(this.value);
-            display.textContent = year;
-            updateMapYear(year);
-        });
-    }
+    d3.select("#year-slider").on("input", function() {
+        const val = +this.value;
+        d3.select("#year-display").text(val);
+        updateMapYear(val);
+    });
 }

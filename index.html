@@ -79,7 +79,7 @@
                         </header>
 
 
-                        <section class="page-21-intro" aria-label="Chart description">
+                        <section class="page-21-intro" aria-label="Chart description" style="position: relative;">
                             <p style="font-size: 1.1rem; font-weight: 600; color: #17486a; margin-bottom: 10px;">
                                 Where you are born plays a massive role in how long you live.
                             </p>
@@ -87,21 +87,33 @@
                                 This world map gives you a quick snapshot of global health. You can drag the timeline below to see how major events like economic booms, better medicine, or health crises, have changed life expectancy around the world since the year 2000.
                             </p>
 
-                            <div class="map-controls">
-                                <input type="range" id="year-slider" min="2000" max="2021" value="2000">
-                                <span id="year-display">2000</span>
-                            </div>
-
                             <button class="page-21-nav" type="button" data-horizontal-target="1" aria-label="Go to page 2-2">
                                 Scroll Right for Top 5 <span aria-hidden="true">→</span>
                             </button>
                         </section>
 
-                        <section class="page-21-map" aria-label="World map visualization placeholder">
-                            <div id="d3-lifespan-map" class="lifespan" aria-label="Global lifespan choropleth map">
+                        <section class="page-21-map" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+                            <div id="d3-lifespan-map" class="lifespan" style="width: 100%; position: relative !important; overflow: visible !important;">
                                 <div id="map-tooltip" class="map-tooltip"></div>
                             </div>
+
+                            <div class="map-controls" style="width: 100%; max-width: 600px;">
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <span style="font-weight: 600; color: #17486a;">2000</span>
+                                    <input type="range" id="year-slider" min="2000" max="2021" value="2021" style="flex: 1; accent-color: #17486a;">
+                                    <span style="font-weight: 600; color: #17486a;">2021</span>
+                                </div>
+                                <div style="text-align: center; margin-top: 5px; color: #17486a;">
+                                    Selected Year: <span id="year-display" style="font-weight: bold;">2021</span>
+                                </div>
+                            </div>
                         </section>
+                        
+
+                        </section>
+
+                        
+
                     </article>
                     <!-- Life Expectancy VS Country — Top 5 Rankings (2 - 2) -->
                     <article class="h-page page-22">
