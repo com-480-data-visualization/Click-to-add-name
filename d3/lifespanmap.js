@@ -1,7 +1,7 @@
 let updateMapYear = null;
 
 async function initLifespanMap() {
-    let currentDataLookup = new Map(); // 共享数据变量
+    let currentDataLookup = new Map(); 
     const container = d3.select("#d3-lifespan-map");
     const width = container.node().clientWidth ;
     const height = container.node().clientHeight * 0.9 ; 
@@ -24,7 +24,7 @@ async function initLifespanMap() {
     const path = d3.geoPath().projection(projection);
     const colorScale = d3.scaleSequential([45, 85], d3.interpolateYlGnBu);
 
-    // --- 内部函数：绘制 Tooltip 里的微型折线图 ---
+    // --- line chart in tooltip
     const drawTooltipChart = (containerId, countryId) => {
         const history = lifespanData
             .filter(d => d.SpatialDimValueCode === countryId)
@@ -39,7 +39,7 @@ async function initLifespanMap() {
 
         const miniSvg = d3.select(containerId).append("svg").attr("width", w).attr("height", h);
         
-        // 绘制线条
+        // line
         miniSvg.append("path")
             .datum(history)
             .attr("fill", "none")
@@ -47,7 +47,7 @@ async function initLifespanMap() {
             .attr("stroke-width", 1.5)
             .attr("d", d3.line().x(d => x(d.year)).y(d => y(d.value)));
 
-        // 标记当前年份的点
+        // year
         const curYear = +document.getElementById("year-slider").value;
         const curPoint = history.find(d => d.year === curYear);
         if (curPoint) {
@@ -57,7 +57,7 @@ async function initLifespanMap() {
         }
     };
 
-    // 绘制国家
+    // country outline according to world.js
     const countries = svg.append("g")
         .selectAll("path")
         .data(geoData.features)
@@ -69,9 +69,9 @@ async function initLifespanMap() {
         .attr("stroke-width", 0.5)
         .on("mouseover", function(event, d) {
             d3.select(this)
-                .raise() // 提到最顶层
+                .raise() 
                 .transition().duration(100)
-                .attr("stroke", "#ffcc00") // 黄色高亮
+                .attr("stroke", "#ffcc00") 
                 .attr("stroke-width", 2);
             d3.select("#map-tooltip").style("visibility", "visible");
         })
@@ -109,7 +109,11 @@ async function initLifespanMap() {
             });
     };
 
-    updateMapYear(2021);
+    const initialYear = +document.getElementById("year-slider").value;
+
+    d3.select("#year-display").text(initialYear);
+
+    updateMapYear(initialYear);
 
     d3.select("#year-slider").on("input", function() {
         const val = +this.value;

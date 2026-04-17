@@ -105,24 +105,6 @@ body.footer-revealed .horizontal-dots {
 	background: var(--dot-active);
 }
 
-
-/*
-   旧逻辑：active 时显示 label
-   .dot.active::after {
-	content: attr(data-label);
-	position: absolute;
-	padding: 0.2rem 0.4rem;
-	border-radius: 0.35rem;
-	font-size: 0.78rem;
-	line-height: 1;
-	white-space: nowrap;
-	background: rgba(255, 255, 255, 0.88);
-	color: var(--text-color);
-	transition: transform 0.2s ease;
-	pointer-events: none;
-   }
-*/
-
 /* 新逻辑：仅鼠标悬停到 dot 时显示 label */
 .dot:hover::after {
 	/* active dot 旁的页面信息标签，文本来自 data-label */

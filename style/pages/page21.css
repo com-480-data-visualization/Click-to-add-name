@@ -128,7 +128,7 @@
 
 .map-tooltip {
     position: absolute;
-    pointer-events: none !important;/* 必须设置，否则鼠标移入 tooltip 时会触发 map 的 mouseout */
+    pointer-events: none !important;
     visibility: hidden;
     background: white;
     border: 2px solid #17486a;

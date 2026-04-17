@@ -4,7 +4,6 @@ const drawGenderDivide = async () => {
     const container = d3.select("#d3-gender-chart");
     container.selectAll("*").remove();
     
-    // 自动获取容器宽度，确保响应式
     const width = container.node().getBoundingClientRect().width;
     const height = 500; 
     const margin = { top: 80, right: 60, bottom: 60, left: 60 };
@@ -60,26 +59,17 @@ const drawGenderDivide = async () => {
         .style("fill", "#e64d9c") 
         .text("Female");
 
-    // 3. Y 轴 (年份) 标题 "Year"
+    // 3. year text
     svg.append("text")
-        .attr("x", innerWidth / 2) // 放在中间年份文字下方
-        .attr("y", innerHeight + 15) // 放在图表最底部下方
+        .attr("x", innerWidth / 2) 
+        .attr("y", innerHeight + 15) 
         .attr("text-anchor", "middle")
         .style("font-size", "12px")
         .style("font-weight", "600")
         .style("fill", "#17486a")
-        .style("text-transform", "uppercase") // 设为大写，更有设计感
+        .style("text-transform", "uppercase")
         .text("Year");
 
-    // // 4. X 轴 (寿命) 标题 "Age"
-    // svg.append("text")
-    //     .attr("x", innerWidth / 2) // 整体居中
-    //     .attr("y", innerHeight + 25) // 紧邻图表底部
-    //     .attr("text-anchor", "middle")
-    //     .style("font-size", "12px")
-    //     .style("font-weight", "600")
-    //     .style("fill", "#666") // 使用中性灰色，不干扰数据
-    //     .text("Age");
 
     // 3. year display
     svg.selectAll(".year-label")
@@ -138,7 +128,7 @@ const drawGenderDivide = async () => {
             .style("opacity", 0)
             .text(d => (+d.Value).toFixed(1))
             .transition().duration(1200).delay((d, i) => i * 40 + 400)
-            .attr("x", d => xMale(+d.Value) - 5) // 标签位置跟随柱子末端
+            .attr("x", d => xMale(+d.Value) - 5) 
             .style("opacity", 1);
 
         svg.selectAll(".label-female")
