@@ -26,13 +26,13 @@ async function initLifespanMap() {
     const domain = [50, 60, 70, 75, 77, 80]; 
 
     const range = [
-        "#e55951",
-        "#fee08b", 
-        "#d9ef8b", 
-        "#22af5f", 
-        "#28a4bc", 
-        "#2877bc",
-        "#0b4b84"  
+        "#e55951", //below 50
+        "#fee08b", //50-60
+        "#d9ef8b", //60-70
+        "#22af5f", //70-75
+        "#28a4bc", //75-77
+        "#2877bc",//77-80
+        "#0b4b84"  //above 80
     ];
 
     const colorScale = d3.scaleThreshold()
