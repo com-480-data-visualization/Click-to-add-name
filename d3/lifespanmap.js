@@ -22,7 +22,22 @@ async function initLifespanMap() {
         .translate([width / 2, height / 1.55]);
 
     const path = d3.geoPath().projection(projection);
-    const colorScale = d3.scaleSequential([45, 85], d3.interpolateYlGnBu);
+   
+    const domain = [50, 60, 70, 75, 77, 80]; 
+
+    const range = [
+        "#e55951",
+        "#fee08b", 
+        "#d9ef8b", 
+        "#22af5f", 
+        "#28a4bc", 
+        "#2877bc",
+        "#0b4b84"  
+    ];
+
+    const colorScale = d3.scaleThreshold()
+        .domain(domain)
+        .range(range);
 
     // --- line chart in tooltip
     const drawTooltipChart = (containerId, countryId) => {
@@ -77,19 +92,25 @@ async function initLifespanMap() {
         })
         .on("mousemove", function(event, d) {
             const year = document.getElementById("year-slider").value;
-            const val = currentDataLookup.get(d.id);
+            
+            const countryCode = d.properties.ISO_A3 || d.id;
+            const val = currentDataLookup.get(countryCode);
+            
+            const officialName = window.currentNameLookup ? window.currentNameLookup.get(countryCode) : d.properties.name;
+
             const [mx, my] = d3.pointer(event, container.node());
 
             d3.select("#map-tooltip")
                 .style("left", (mx + 20) + "px")
                 .style("top", (my + 20) + "px")
                 .html(`
-                    <div style="font-weight:bold; color:#17486a;">${d.properties.name || d.id}</div>
-                    <div style="font-size:0.85rem;">${year}: <b>${val ? val.toFixed(1) : 'N/A'} yrs</b></div>
+                    <div style="font-weight:bold; color:#17486a;">${officialName || "Unknown"}</div>
+                    <div style="font-size:0.85rem;">${year}: <b>${val ? val.toFixed(1) : 'No Data'} yrs</b></div>
                     <div id="mini-chart" class="tooltip-chart-container"></div>
                 `);
 
-            drawTooltipChart("#mini-chart", d.id);
+            drawTooltipChart("#mini-chart", countryCode)
+            countries.style("pointer-events", "all");
         })
         .on("mouseout", function() {
             d3.select(this)
@@ -98,15 +119,18 @@ async function initLifespanMap() {
                 .attr("stroke-width", 0.5);
             d3.select("#map-tooltip").style("visibility", "hidden").html("");
         });
-
+        
     updateMapYear = function(year) {
         const data = lifespanData.filter(d => +d.Period === year);
         currentDataLookup = new Map(data.map(d => [d.SpatialDimValueCode, +d.Value]));
+        const nameLookup = new Map(data.map(d => [d.SpatialDimValueCode, d.Location])); // 核心：保存数据里的 Location 字段
         countries.transition().duration(400)
             .attr("fill", d => {
-                const v = currentDataLookup.get(d.id);
+                const code = d.properties.ISO_A3 || d.id; 
+                const v = currentDataLookup.get(code);
                 return v ? colorScale(v) : "#f0f0f0";
             });
+        window.currentNameLookup = nameLookup; 
     };
 
     const initialYear = +document.getElementById("year-slider").value;
@@ -120,4 +144,5 @@ async function initLifespanMap() {
         d3.select("#year-display").text(val);
         updateMapYear(val);
     });
+
 }
