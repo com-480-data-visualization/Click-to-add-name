@@ -77,10 +77,40 @@ Visually, we were inspired by the clean, interactive aesthetics of [The Pudding]
 
 (Note: The datasets utilized in this project have not been explored by our team in any previous ML, ADA, or semester projects).
 
+---
+
 ## Milestone 2 (18th April, 5pm)
 
 **10% of the final grade**
+## The Longevity Equation
+### Project Report
+Our comprehensive Milestone 2 report contains our detailed project goals, visualization sketches, technical tool mapping to the COM-480 syllabus, and our implementation roadmap.
+* [**Milestone 2 Report (PDF)**](assets/Milestone_2_Report.pdf)
 
+
+### Functional Prototype
+The initial website skeleton and functional prototype are now live. This version demonstrates our paginated narrative structure and the layout for our upcoming D3.js visualizations.
+* [**The Longevity Equation Prototype**](https://com-480-data-visualization.github.io/Click-to-add-name/)
+
+
+### Current Progress and Technical Implementation
+For this milestone, we have focused on building a robust foundation for our data story:
+* **Web Skeleton:** We developed a navigation system using HTML, CSS, and JavaScript. The site supports vertical transitions between major topics and horizontal navigation for detailed rankings.
+* **Narrative Flow:** The investigative journey is fully drafted, moving from global demographic trends (The Gender Divide) to specific case studies (The Wealth Paradox).
+* **Visualization Containers:** We have implemented responsive SVG containers for our D3.js widgets. 
+* **D3.js Preparation:** Our unified dataset from the WHO and World Bank has been pre-processed and is ready for the implementation of the Butterfly Chart, Racing Bar Chart, and the normalized Radar Chart.
+
+
+### Core MVP Goals
+* Deliver a fully navigable website with structured data storytelling.
+* Functional interactive World Map with a manual year timeline slider.
+* Normalized Radar Chart for individual country health profiles.
+
+### Creative Extras
+* **Audio Sonification:** Heartbeat sound effects that scale with data trends.
+* **Personalized Marker:** User-driven data input for statistical comparison.
+
+---
 
 ## Milestone 3 (30th May, 5pm)
 
@@ -91,4 +121,3 @@ Visually, we were inspired by the clean, interactive aesthetics of [The Pudding]
 
 - < 24h: 80% of the grade for the milestone
 - < 48h: 70% of the grade for the milestone
-
