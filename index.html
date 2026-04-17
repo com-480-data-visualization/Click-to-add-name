@@ -237,23 +237,37 @@
                                 </div>
                             </section> 
                             
-                            <!-- 右侧雷达图 -->
-                            <section class="page-41-radar" aria-label="Dynamic radar chart placeholder">
-                                <div class="page-41-radar-canvas" id="d3-summary-radar">
-                                    <img src="./assets/Radar.jpg" alt="Health profile radar chart" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px; display: block;">
+                            <!-- user input context -->
+                            <div class="user-input-section" style="padding: 20px; background: rgba(25, 72, 106, 0.05); border-radius: 15px; margin: 20px 0;">
+                                    <h3 style="color: #17486a;">Where do you stand?</h3>
+                                    <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+                                        
+                                        <input type="number" id="user-age-input" placeholder="Age" style="padding: 8px; border-radius: 5px; border: 1px solid #ccc; width: 80px;">
+                                        
+                                        <select id="user-gender-select" style="padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+                                            <option value="Both sexes">Prefer not to tell</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                        
+                                        <select id="user-country-select" style="padding: 8px; border-radius: 5px; border: 1px solid #ccc; min-width: 150px;">
+                                            </select>
+                                        
+                                        <button id="calculate-btn" style="background: #17486a; color: white; border: none; padding: 10px 25px; border-radius: 20px; cursor: pointer; font-weight: bold;">Show Me</button>
+                                    </div>
+
+                                    <div id="result-display" style="display: none; margin-top: 20px; padding: 15px; background: white; border-radius: 10px; border-left: 5px solid #17486a;">
+                                        <div id="result-text" style="color: #333; line-height: 1.5;"></div>
+                                    </div>
+                                    <div style="margin-top: 12px; font-size: 0.85rem; color: #888; font-style: italic; line-height: 1.5;">
+                                    <p style="margin: 0 0 8px 0;">
+                                        Statistical averages are based on 2019 data (pre-COVID baseline), representing the most recent stable global health snapshot.
+                                    </p>
+                                    <p style="margin: 0;">
+                                        But life isn’t just statistics, with advances in healthcare and the choices you make, you are constantly shaping your own “bonus” years.
+                                    </p>
                                 </div>
-                                <div class="page-41-controls">
-                                    <button class="page-41-play-btn" type="button" id="radarPlayBtn" aria-label="Play radar timeline">
-                                        &#9654;
-                                    </button>
-                                    <input class="page-41-timeline" type="range"
-                                        id="radarTimeline"
-                                        min="2000" max="2020" value="2000" step="1"
-                                        aria-label="Radar year timeline" />
-                                    <span class="page-41-year-label" id="radarYearLabel" aria-live="polite">2000</span>
                                 </div>
-                                <p class="page-41-hint" style="font-size: 0.85rem; opacity: 0.6;">Keep scrolling to see the team info</p>
-                            </section>
                         </div>
 
 
@@ -272,11 +286,12 @@
 
     <!--导入JS脚本-->
     <script src="./scripts/scroll.js"></script>
+
     <!--loading d3 folder--> 
     <script src="https://d3js.org/d3.v7.min.js"></script>
-
     <script src="./d3/genderchart.js"></script>
     <script src="./d3/lifespanmap.js"></script>
     <script src="./d3/rankingchart.js"></script>
+    <script src="./d3/interactivechart.js"></script>
 </body>
 </html>
