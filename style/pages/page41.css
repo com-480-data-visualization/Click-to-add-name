@@ -7,6 +7,12 @@
 	gap: 1rem;
 }
 
+.page-41-header h2 {
+	margin: 0;
+	font-size: clamp(1.4rem, 3vw, 2.2rem);
+	letter-spacing: 0.02em;
+}
+
 .page-41-body {
 	flex: 1;
 	min-height: 0;

@@ -1,5 +1,6 @@
 /*
     处理页面的滚动和翻页逻辑，支持鼠标滚轮、键盘箭头、点击 dot 和移动端手势等多种交互方式
+    以及page-31的静态图片放大功能
 */
 
 const viewport = document.getElementById("viewport");
@@ -8,6 +9,9 @@ const verticalPages = [...document.querySelectorAll(".v-page")];
 const horizontalDotsContainer = document.getElementById("horizontalDots");
 const verticalDotsContainer = document.getElementById("verticalDots");
 const teamFooter = document.getElementById("teamFooter");
+const imageLightbox = document.getElementById("imageLightbox");
+const imageLightboxImg = document.getElementById("imageLightboxImg");
+const imageLightboxCaption = document.getElementById("imageLightboxCaption");
 
 let currentVIndex = 0;
 const currentHIndexByLayer = verticalPages.map(() => 0);
@@ -17,6 +21,9 @@ let isFooterRevealed = false;
 
 let isTransitioning = false;
 const transitionDuration = 560;
+let isImageLightboxOpen = false;
+const imageLightboxHideDuration = 280;
+let imageLightboxCloseTimer = null;
 // dot 的默认提示文本
 const defaultLabel = "请输入文本";
 
@@ -127,6 +134,48 @@ function lockTransition() {
     }, transitionDuration);
 }
 
+function openImageLightbox(imageElement) {
+    if (!imageLightbox || !imageLightboxImg || !imageElement) return;
+
+    if (imageLightboxCloseTimer !== null) {
+        window.clearTimeout(imageLightboxCloseTimer);
+        imageLightboxCloseTimer = null;
+    }
+
+    imageLightboxImg.src = imageElement.src;
+    imageLightboxImg.alt = imageElement.alt || "Expanded image";
+    
+    // 读取标题和描述
+    const title = imageElement.dataset.title || "Image";
+    const description = imageElement.dataset.description || "";
+    if (imageLightboxCaption) {
+        imageLightboxCaption.textContent = description || title;
+    }
+    
+    imageLightbox.classList.remove("is-closing");
+    imageLightbox.classList.add("is-open");
+    imageLightbox.setAttribute("aria-hidden", "false");
+    isImageLightboxOpen = true;
+}
+
+function closeImageLightbox() {
+    if (!imageLightbox || !isImageLightboxOpen) return;
+
+    imageLightbox.classList.add("is-closing");
+    imageLightbox.setAttribute("aria-hidden", "true");
+    isImageLightboxOpen = false;
+
+    imageLightboxCloseTimer = window.setTimeout(() => {
+        imageLightbox.classList.remove("is-open");
+        imageLightbox.classList.remove("is-closing");
+        imageLightboxImg.src = "";
+        if (imageLightboxCaption) {
+            imageLightboxCaption.textContent = "";
+        }
+        imageLightboxCloseTimer = null;
+    }, imageLightboxHideDuration);
+}
+
 // 纵向切换：整屏吸附到指定层
 // function goVertical(nextIndex) {
 //     if (isTransitioning) return;
@@ -192,6 +241,10 @@ let lastWheelTime = 0;
 let isScrollingSequence = false;
 
 function handleWheel(event) {
+    if (isImageLightboxOpen) {
+        event.preventDefault();
+        return;
+    }
     event.preventDefault();
 
     const currentTime = Date.now();
@@ -240,6 +293,14 @@ function handleWheel(event) {
 }
 
 function handleKeyDown(event) {
+    if (isImageLightboxOpen) {
+        if (event.key === "Escape") {
+            event.preventDefault();
+            closeImageLightbox();
+        }
+        return;
+    }
+
     if (event.key === "ArrowDown") {
         event.preventDefault();
         if (currentVIndex === lastVIndex) {
@@ -285,6 +346,8 @@ function handleHorizontalDotClick(event) {
 
 // 页面内按钮也可以触发横向翻页，避免只依赖手势提示。
 function handleHorizontalActionClick(event) {
+    if (isImageLightboxOpen) return;
+
     const trigger = event.target.closest("[data-horizontal-target]");
     if (!trigger) return;
 
@@ -292,6 +355,19 @@ function handleHorizontalActionClick(event) {
     if (Number.isNaN(nextIndex)) return;
 
     goHorizontal(nextIndex);
+}
+
+function handleLightboxClick(event) {
+    const closeTrigger = event.target.closest("[data-lightbox-close]");
+    if (closeTrigger) {
+        closeImageLightbox();
+        return;
+    }
+
+    const clickedImage = event.target.closest(".page-31-chart-image");
+    if (!clickedImage) return;
+
+    openImageLightbox(clickedImage);
 }
 
 // 移动端/平板手势：按滑动主方向决定纵向或横向翻页
@@ -302,6 +378,8 @@ function handleTouchStart(event) {
 }
 
 function handleTouchEnd(event) {
+    if (isImageLightboxOpen) return;
+
     const touch = event.changedTouches[0];
     const deltaX = touch.clientX - touchStartX;
     const deltaY = touch.clientY - touchStartY;
@@ -339,5 +417,7 @@ window.addEventListener("keydown", handleKeyDown);
 verticalDotsContainer.addEventListener("click", handleVerticalDotClick);
 horizontalDotsContainer.addEventListener("click", handleHorizontalDotClick);
 viewport.addEventListener("click", handleHorizontalActionClick);
+viewport.addEventListener("click", handleLightboxClick);
+imageLightbox.addEventListener("click", handleLightboxClick);
 viewport.addEventListener("touchstart", handleTouchStart, { passive: true });
 viewport.addEventListener("touchend", handleTouchEnd, { passive: true });

@@ -1,6 +1,5 @@
 /* =========================================================
    2-2 页：Top 5 Countries — Life Expectancy Rankings
-   header / intro 复用 page21.css 中的 .page-21-header / .page-21-intro
    ========================================================= */
 
 .page-22 {
@@ -12,6 +11,30 @@
 	/* 底部留空给后续页脚信息 */
 	padding: clamp(1.4rem, 3vw, 2.4rem) clamp(1.4rem, 3vw, 2.4rem) clamp(3.6rem, 7vh, 5.4rem);
 	gap: 1rem;
+}
+
+.page-22-header h2 {
+	margin: 0;
+	font-size: clamp(1.4rem, 3vw, 2.2rem);
+	letter-spacing: 0.02em;
+}
+
+.page-22-intro {
+	width: min(75rem, 100%);
+	padding: 1rem 1.1rem;
+	border-radius: 1rem;
+	background: rgba(255, 252, 246, 0.72);
+	border: 1px solid rgba(31, 31, 31, 0.14);
+	box-shadow: 0 18px 45px rgba(31, 31, 31, 0.08);
+	backdrop-filter: blur(8px);
+}
+
+.page-22-intro p {
+	position: relative;
+	margin: 0;
+	font-size: 1rem;
+	line-height: 1.65;
+	opacity: 0.9;
 }
 
 /* 柱状图卡片容器：占据剩余高度，内部纵向排列图区 + 控制条 */
@@ -165,5 +188,9 @@
 @media (max-width: 768px) {
 	.page-22 {
 		padding-bottom: clamp(4.2rem, 10vh, 6rem);
+	}
+
+	.page-22-intro {
+		width: 100%;
 	}
 }

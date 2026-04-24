@@ -21,14 +21,14 @@
 	gap: clamp(0.8rem, 2vw, 1.2rem);
 }
 
-/*.chart-placeholder,
+.chart-placeholder,
 .conclusion-placeholder {
 	background: rgba(255, 255, 255, 0.56);
 	border: 1px dashed rgba(31, 31, 31, 0.28);
 	border-radius: 0.7rem;
 	padding: 1rem;
 	height: 95%;
-}*/
+}
 
 .chart-placeholder {
     display: block; 
