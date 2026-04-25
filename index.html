@@ -94,19 +94,19 @@
 
                         <!-- insert img anywhere u like here-->
                         <section class="page-21-map" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+                            <div class="page-21-map-row">
                             <div id="d3-lifespan-map" class="lifespan" style="width: 100%; position: relative !important; overflow: visible !important;">
                                 <div id="map-tooltip" class="map-tooltip"></div>
                             </div>
 
-                            <div class="map-controls" style="width: 100%; max-width: 600px;">
-                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                    <span style="font-weight: 600; color: #17486a;">2000</span>
-                                    <input type="range" id="year-slider" min="2000" max="2021" value="2021" style="flex: 1; accent-color: #17486a;">
-                                    <span style="font-weight: 600; color: #17486a;">2021</span>
-                                </div>
-                                <div style="text-align: center; margin-top: 5px; color: #17486a;">
+                            <div class="map-controls map-controls-vertical" style="width: 100%; max-width: 600px;">
+                                <span class="map-year-label map-year-label-max" style="margin-bottom: 3.0rem;">2021</span>
+                                <input type="range" id="year-slider" min="2000" max="2021" value="2021" class="vertical-year-slider" style="accent-color: #17486a;">
+                                <span class="map-year-label map-year-label-min" style="margin-top: 3.3rem;">2000</span>
+                                <div class="map-year-selected" style="margin-top: 0.65rem;">
                                     Selected Year: <span id="year-display" style="font-weight: bold;">2021</span>
                                 </div>
+                            </div>
                             </div>
                         </section>
                     </article>

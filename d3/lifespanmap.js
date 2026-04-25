@@ -5,11 +5,13 @@ async function initLifespanMap() {
     const container = d3.select("#d3-lifespan-map");
     const width = container.node().clientWidth ;
     const height = container.node().clientHeight * 0.9 ; 
+    const legendPanelWidth = 150;
+    const legendGap = 18;
 
     container.selectAll("svg").remove();
 
     const svg = container.append("svg")
-        .attr("viewBox", `0 0 ${width} ${container.node().clientHeight}`)
+        .attr("viewBox", `0 0 ${width} ${height}`)
         .attr("preserveAspectRatio", "xMidYMid meet");
 
     const [lifespanData, geoData] = await Promise.all([
@@ -18,8 +20,10 @@ async function initLifespanMap() {
     ]);
 
     const projection = d3.geoNaturalEarth1()
-        .fitSize([width, height], geoData)
-        .translate([width / 2, height / 1.55]);
+        .fitExtent(
+            [[legendPanelWidth + legendGap, 8], [width - 8, height - 8]],
+            geoData
+        );
 
     const path = d3.geoPath().projection(projection);
    
@@ -38,6 +42,60 @@ async function initLifespanMap() {
     const colorScale = d3.scaleThreshold()
         .domain(domain)
         .range(range);
+
+    // 在地图右侧添加图例：legendGroup
+    const legendLabels = ["< 50", "50 - 60", "60 - 70", "70 - 75", "75 - 77", "77 - 80", "> 80"];
+    const legendItemHeight = 28;
+    const legendBarWidth = 20;
+    const legendX = 10;
+    const legendY = 18;
+
+    const legendGroup = svg.append("g")
+        .attr("class", "map-legend")
+        .attr("transform", `translate(${legendX}, ${legendY})`);
+
+    legendGroup.append("rect")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", legendPanelWidth)
+        .attr("height", legendItemHeight * range.length + 48)
+        .attr("rx", 10)
+        .attr("fill", "rgba(255, 255, 255, 0.84)")
+        .attr("stroke", "rgba(23, 72, 106, 0.24)")
+        .attr("stroke-width", 1.2);
+
+    legendGroup.append("text")
+        .attr("x", 12)
+        .attr("y", 20)
+        .attr("fill", "#17486a")
+        .attr("font-size", 13)
+        .attr("font-weight", 800)
+        .text("Life Expectancy");
+
+    legendGroup.selectAll("rect.legend-item")
+        .data(range)
+        .enter()
+        .append("rect")
+        .attr("class", "legend-item")
+        .attr("x", 12)
+        .attr("y", (_, i) => 34 + i * legendItemHeight)
+        .attr("width", legendBarWidth)
+        .attr("height", legendItemHeight)
+        .attr("fill", d => d)
+        .attr("stroke", "rgba(23, 72, 106, 0.28)")
+        .attr("stroke-width", 0.6);
+
+    legendGroup.selectAll("text.legend-label")
+        .data(legendLabels)
+        .enter()
+        .append("text")
+        .attr("class", "legend-label")
+        .attr("x", legendBarWidth + 20)
+        .attr("y", (_, i) => 34 + i * legendItemHeight + legendItemHeight / 2 + 6)
+        .attr("fill", "#17486a")
+        .attr("font-size", 12)
+        .attr("font-weight", 600)
+        .text(d => d);
 
     // --- line chart in tooltip
     const drawTooltipChart = (containerId, countryId) => {
