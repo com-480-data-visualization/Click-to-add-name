@@ -153,18 +153,23 @@ To run this project locally and explore the code:
    ```
 3. Open your browser and navigate to `http://localhost:8000`
 
+
 **Repository Architecture:**
-* `/data/`: Contains the cleaned and merged datasets from the WHO and World Bank.
-* `/d3/`: Contains the core JavaScript files handling the D3.js visualization logic.
-* `/style/`: Contains all CSS stylesheets for layout, typography, and responsive design.
-* `/scripts/`: Contains the Vanilla JS logic for the scrollytelling mechanism and UI interactions.
+Based on the current structure of our final delivery:
 * `/assets/`: Contains images, icons, the Milestone reports, and the final Process Book.
+* `/d3/`: Contains the core JavaScript files handling the D3.js visualization logic.
+* `/data-preprocessing/`: Contains the Jupyter notebooks (`EDA.ipynb`) used for data cleaning.
+* `/data/`: Contains the final cleaned JSON/CSV datasets used by the D3 visualizations.
+* `/raw_data/`: Contains the original unedited datasets from the WHO and World Bank.
+* `/scripts/`: Contains the Vanilla JS logic for the scrollytelling mechanism and UI interactions.
+* `/style/`: Contains all CSS stylesheets for layout, typography, and responsive design.
+* `/website_outdated/`: Contains legacy architecture from earlier development phases.
+* `index.html`: The main entry point for the interactive data story.
 
 ### 👥 Peer Assessment & Contributions
-* **Lin Xiaoya (423134):** Data Preprocessing, D3 implementation (Scatter Plot & Map).
-* **Wu Yiqian (423147):** UI/UX Design, D3 implementation (Butterfly Chart).
-* **Liu Tingsen (422014):** Scrollytelling Architecture, D3 implementation (Personal Calculator & Navigation).
-
+* **Lin Xiaoya (423134):** Conducted data preprocessing and Exploratory Data Analysis (EDA). Authored the Milestone 2 report, the Milestone 3 Process Book, and narrative text for the website. 
+* **Liu Tingsen (422014):** Developed the foundational HTML and JavaScript architecture (scrollytelling and navigation). Authored the initial draft for Milestone 1.
+* **Wu Yiqian (423147):** Conducted related work research. Authored the initial draft for Milestone 1. Implemented the core D3.js visualizations.
 ---
 
 
