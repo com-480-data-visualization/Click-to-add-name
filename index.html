@@ -51,11 +51,9 @@
                         </header>
                         <div class="page-11-content">
                             <section id="d3-gender-chart" class="chart-placeholder" aria-label="D3 chart placeholder">
-                                <img src="./assets/Gender.jpg" alt="Gender life expectancy chart" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px; display: block;">
                             </section>
-
-
                             
+
                             <aside id="conclusion-panel-11" class="conclusion-placeholder" aria-label="Conclusion placeholder">
                                 <h3 style="color: #17486a; margin-bottom: 20px;">The Biological and Social Divide</h3>
                                 <p style="margin-bottom: 20px;">Globally, women live about <strong>4.8 years longer</strong> than men. But why does this happen across almost all countries, regardless of how rich or poor they are?</p>
@@ -64,7 +62,14 @@
                                     <p><strong>2. Behavioral Factors:</strong> Statistically, men have historically engaged in more risk-taking behaviors. They have higher rates of smoking and drinking, and often work in more physically dangerous jobs.</p>
                                     <p><strong>3. Healthcare Habits:</strong> Studies consistently show that women are more proactive about their health. They tend to visit doctors earlier and more frequently for preventive care than men do.</p>
                                 </div>
-                                <p style="margin-top: 25px; font-weight: 500;">The takeaway? Wealth and modern medicine can increase a country's overall lifespan, but this natural gender gap remains incredibly stubborn everywhere.</p>
+                                
+                                <div style="margin-top: 20px; padding: 12px; background: rgba(23, 72, 106, 0.05); border-radius: 8px;">
+                                    <p style="margin: 0; font-size: 0.9rem; color: #17486a;">
+                                        <strong>Note on 2020-2021:</strong> You will notice a visible drop in life expectancy at the end of the timeline. While the COVID-19 pandemic severely impacted all demographics, the female survival advantage persisted. Bolstered by the stronger healthcare habits mentioned above, women maintained a higher life expectancy even during the global crisis.
+                                    </p>
+                                </div>
+
+                                <p style="margin-top: 20px; font-weight: 500;">The takeaway? Wealth and modern medicine can increase a country's overall lifespan, but this natural gender gap remains incredibly stubborn everywhere.</p>
                             </aside>
 
                             
@@ -82,33 +87,45 @@
                         </header>
 
 
-                        <section class="page-21-intro" aria-label="Chart description">
+                        <section class="page-21-intro" aria-label="Chart description" style="position: relative;">
                             <p style="font-size: 1.1rem; font-weight: 600; color: #17486a; margin-bottom: 10px;">
                                 Where you are born plays a massive role in how long you live.
                             </p>
                             <p>
                                 This world map gives you a quick snapshot of global health. You can drag the timeline below to see how major events like economic booms, better medicine, or health crises, have changed life expectancy around the world since the year 2000.
                             </p>
+
                             <button class="page-21-nav" type="button" data-horizontal-target="1" aria-label="Go to page 2-2">
                                 Scroll Right for Top 5 <span aria-hidden="true">→</span>
                             </button>
                         </section>
 
-                        <section class="page-21-map" aria-label="World map visualization placeholder">
-                            <div class="page-21-map-placeholder" style="display: flex; align-items: center; justify-content: center;">
-                                <img src="./assets/Global Lifespan Map.jpg" alt="Global lifespan map" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px;">
+                        <!-- insert img anywhere u like here-->
+                        <section class="page-21-map" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+                            <div class="page-21-map-row">
+                            <div id="d3-lifespan-map" class="lifespan" style="width: 100%; position: relative !important; overflow: visible !important;">
+                                <div id="map-tooltip" class="map-tooltip"></div>
+                            </div>
+
+                            <div class="map-controls map-controls-vertical" style="width: 100%; max-width: 600px;">
+                                <span class="map-year-label map-year-label-max" style="margin-bottom: 3.0rem;">2021</span>
+                                <input type="range" id="year-slider" min="2000" max="2021" value="2021" class="vertical-year-slider" style="accent-color: #17486a;">
+                                <span class="map-year-label map-year-label-min" style="margin-top: 3.3rem;">2000</span>
+                                <div class="map-year-selected" style="margin-top: 0.65rem;">
+                                    Selected Year: <span id="year-display" style="font-weight: bold;">2021</span>
+                                </div>
+                            </div>
                             </div>
                         </section>
                     </article>
+
                     <!-- Life Expectancy VS Country — Top 5 Rankings (2 - 2) -->
                     <article class="h-page page-22">
-                        <header class="page-21-header">
+                        <header class="page-22-header">
                             <h2>Top 5 Nations in Life Expectancy Rankings</h2>
                         </header>
 
-                
-
-                        <section class="page-21-intro" aria-label="Chart description">
+                        <section class="page-22-intro" aria-label="Chart description">
                             <p style="font-size: 1.1rem; font-weight: 600; color: #17486a; margin-bottom: 10px;">
                                 Which countries are leading the way in human survival?
                             </p>
@@ -119,7 +136,6 @@
 
                         <section class="page-22-chart" aria-label="Horizontal bar chart placeholder">
                             <div class="page-22-bars" id="d3-ranking-chart" style="display: flex; align-items: center; justify-content: center;">
-                                <img src="./assets/Top 5 Nations.jpg" alt="Top 5 nations life expectancy chart" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px;">
                             </div>
 
                             <div class="page-22-controls">
@@ -129,7 +145,7 @@
                                 </button>
                                 <input class="page-22-timeline" type="range"
                                        id="rankingTimeline"
-                                       min="2000" max="2020" value="2000" step="1"
+                                       min="2000" max="2021" value="2000" step="1"
                                        aria-label="Year timeline" />
                                 <span class="page-22-year-label" id="rankingYearLabel" aria-live="polite">2000</span>
                             </div>
@@ -142,52 +158,44 @@
                 <div class="h-track">
                     <!-- Special Case: High GDP, Low Life Expectancy (3 - 1) -->
                     <article class="h-page page-31">
-
-
-                        <header class="page-21-header">
+                        <header class="page-31-header">
                             <h2>The Wealth Paradox</h2>
                         </header>
-
-
                         <div class="page-31-body">
-    
-    <div class="page-31-analysis" style="display: flex; flex-direction: column; height: 100%;">
-        <div class="page-31-text" style="flex: 1; overflow-y: auto;">
-            <p class="page-31-lead" style="font-size: 1.15rem; color: #17486a; margin-bottom: 15px; font-weight: bold;">
-                When Money Fails to Buy Time
-            </p>
-            <p style="margin-bottom: 12px;">
-                We usually assume that richer countries have healthier and longer living citizens. But there are striking exceptions.
-            </p>
-            <p style="margin-bottom: 12px;">
-                Take <strong>The Bahamas</strong> in 2021 as an example. It is one of the wealthiest nations in the world with a GDP per capita over $30,000. Yet its people only live to about 70.4 years on average. <strong>This is more than 10 years shorter than the average lifespan of other wealthy nations.</strong> Why?
-            </p>
-            <p style="margin-bottom: 12px;">
-                The answer lies in inequality and lifestyle diseases. Much of the national wealth comes from luxury tourism and offshore banking meaning the money is not evenly shared with everyday citizens.
-            </p>
-            <p>
-                Combine this wealth gap with a diet heavily reliant on imported processed foods and you get a massive 20.4 percent mortality rate from chronic conditions like diabetes and heart disease before the age of 70. This proves that raw wealth alone cannot buy time if a nation fails to invest in health education and disease prevention.
-            </p>
-        </div>
-    </div>
-
-    <div class="page-31-charts">
-        <div class="page-31-chart-slot" style="padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-            <span class="page-31-chart-label">Static Analysis</span>
-            <img src="./assets/bahamas_comparison.png" alt="Life Expectancy Comparison Chart" style="max-height: 80%; max-width: 100%; object-fit: contain; border-radius: 8px;">
-            <p style="margin-top: 0.8rem; font-size: 0.8rem; opacity: 0.7; font-style: italic; text-align: center; margin-bottom: 0;">Life expectancy comparison across different income brackets in 2021</p>
-        </div>
         
-        <div class="page-31-chart-slot" id="d3-chart2" aria-label="Country comparison chart placeholder" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <span class="page-31-chart-label">Scatter Plot</span>
-            <img src="./assets/wealth paradox.png" alt="Wealth paradox chart" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px;">
-        </div>
-    </div>
-</div>
-                        
+                            <div class="page-31-analysis">
+                                <div class="page-31-text">
+                                    <p class="page-31-lead">
+                                        When Money Fails to Buy Time
+                                    </p>
+                                    <p style="margin-bottom: 12px;">
+                                        We usually assume that richer countries have healthier and longer living citizens. But there are striking exceptions.
+                                    </p>
+                                    <p style="margin-bottom: 12px;">
+                                        Take <strong>The Bahamas</strong> in 2021 as an example. It is one of the wealthiest nations in the world with a GDP per capita over $30,000. Yet its people only live to about 70.4 years on average. <strong>This is more than 10 years shorter than the average lifespan of other wealthy nations.</strong> Why?
+                                    </p>
+                                    <p style="margin-bottom: 12px;">
+                                        The answer lies in inequality and lifestyle diseases. Much of the national wealth comes from luxury tourism and offshore banking meaning the money is not evenly shared with everyday citizens.
+                                    </p>
+                                    <p>
+                                        Combine this wealth gap with a diet heavily reliant on imported processed foods and you get a massive 20.4 percent mortality rate from chronic conditions like diabetes and heart disease before the age of 70. This proves that raw wealth alone cannot buy time if a nation fails to invest in health education and disease prevention.
+                                    </p>
+                                </div>
 
-                        
-                       
+                                <div class="page-31-chart-slot page-31-static-slot">
+                                    <span class="page-31-chart-label">Static Analysis</span>
+                                    <img class="page-31-chart-image" src="./assets/bahamas_comparison.png" alt="Life Expectancy Comparison Chart" data-title="Static Analysis" data-description="Life expectancy comparison across different income brackets in 2021">
+                                    <p class="page-31-chart-caption">Life expectancy comparison across different income brackets in 2021</p>
+                                </div>
+                            </div>
+
+                            <div class="page-31-charts">
+                                <div class="page-31-chart-slot page-31-scatter-slot" id="d3-chart2" aria-label="Country comparison chart placeholder">
+                                    <span class="page-31-chart-label">Scatter Plot</span>
+                                    <img class="page-31-chart-image" src="./assets/wealth paradox.png" alt="Wealth paradox chart" data-title="Scatter Plot" data-description="Wealth paradox: exception point in 'GDP vs Life Expectancy'">
+                                </div>
+                            </div>
+                        </div>       
                     </article>
                 </div>
             </section>
@@ -195,56 +203,70 @@
             <section class="v-page">
                 <div class="h-track">
                     <article class="h-page page-41">
-                        <header class="page-21-header">
-                            <h2>Final Multidimensional Health Profile</h2>
+                        <header class="page-41-header">
+                            <h2>Conclusion: Your Place in the Equation</h2>
                         </header>
 
 
                         <div class="page-41-body">
-                            <!-- 左侧总结文字 -->
                             <section class="page-41-summary" aria-label="Summary text area">
-
-                                
                                 <div class="page-41-summary-text">
-                                    <p class="page-41-lead" style="font-size: 1.15rem; color: #17486a; margin-bottom: 15px;">
-                                        Conclusion: The Full Picture of Health
+                                    <p style="margin-bottom: 12px;">
+                                        Over the course of this journey, we have seen that human lifespan is not just a biological given. It is deeply shaped by where you are born, your gender, and how effectively your nation's wealth is used to combat lifestyle diseases.
                                     </p>
                                     <p style="margin-bottom: 12px;">
-                                        As we've seen, measuring a country's true health is complicated. GDP alone doesn't guarantee a long life if that wealth isn't used to prevent chronic lifestyle diseases.
+                                        But macro-level statistics are only half the story. <strong>Now, it is time to bring the data home to you.</strong>
                                     </p>
-                                    <p style="margin-bottom: 12px;">
-                                        <strong>Now it's your turn to explore!</strong> Use the timeline and controls below to select a country. Check its unique "health fingerprint" across five areas: 
+                                    <p style="margin-bottom: 20px;">
+                                        Use the interactive calculator on the right to input your current age, gender, and home country. We will pull the pre-COVID baseline data (2019) to calculate your statistical life expectancy. You will discover:
                                     </p>
-                                    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 25px; line-height: 1.8; font-weight: 500;">
-                                        <li>Wealth (GDP per capita)</li>
-                                        <li>Overall Lifespan</li>
-                                        <li>Male Lifespan</li>
-                                        <li>Female Lifespan</li>
-                                        <li>Chronic Disease Rate (NCD)</li>
+                                    <ul style="margin-top: 10px; margin-bottom: 25px; padding-left: 25px; line-height: 1.8; font-weight: 500;">
+                                        <li>How many statistical years you have left to enjoy.</li>
+                                        <li>How your demographic profile compares to the global average.</li>
+                                        <li>Your "bonus years" if you live in a nation with strong preventive healthcare.</li>
                                     </ul>
-                                    <p style="margin-top: 1rem; font-style: italic; opacity: 0.7;">
+                                    <p style="margin-bottom: 12px;">
+                                        Remember, while geography and biology set the baseline, your personal lifestyle choices write the rest of the equation.
+                                    </p>
+                                    <p style="margin-top: 2rem; font-style: italic; opacity: 0.7; font-size: 0.85rem;">
                                         Scroll down to view team credits.
                                     </p>
                                 </div>
                             </section> 
+
+
                             
-                            <!-- 右侧雷达图 -->
-                            <section class="page-41-radar" aria-label="Dynamic radar chart placeholder">
-                                <div class="page-41-radar-canvas" id="d3-summary-radar">
-                                    <img src="./assets/Radar.jpg" alt="Health profile radar chart" style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px; display: block;">
-                                </div>
-                                <div class="page-41-controls">
-                                    <button class="page-41-play-btn" type="button" id="radarPlayBtn" aria-label="Play radar timeline">
-                                        &#9654;
-                                    </button>
-                                    <input class="page-41-timeline" type="range"
-                                        id="radarTimeline"
-                                        min="2000" max="2020" value="2000" step="1"
-                                        aria-label="Radar year timeline" />
-                                    <span class="page-41-year-label" id="radarYearLabel" aria-live="polite">2000</span>
-                                </div>
-                                <p class="page-41-hint" style="font-size: 0.85rem; opacity: 0.6;">Keep scrolling to see the team info</p>
-                            </section>
+                            <!-- user input context -->
+                            <div class="user-input-section" style="padding: 20px; background: rgba(25, 72, 106, 0.05); border-radius: 15px; margin: 20px 0;">
+                                    <h3 style="color: #17486a;">Where do you stand?</h3>
+                                    <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+                                        
+                                        <input type="number" id="user-age-input" placeholder="Age" style="padding: 8px; border-radius: 5px; border: 1px solid #ccc; width: 80px;">
+                                        
+                                        <select id="user-gender-select" style="padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+                                            <option value="Both sexes">Prefer not to tell</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                        
+                                        <select id="user-country-select" style="padding: 8px; border-radius: 5px; border: 1px solid #ccc; min-width: 150px;">
+                                            </select>
+                                        
+                                        <button id="calculate-btn" style="background: #17486a; color: white; border: none; padding: 10px 25px; border-radius: 20px; cursor: pointer; font-weight: bold;">Show Me</button>
+                                    </div>
+
+                                    <div id="result-display" style="display: none; margin-top: 20px; padding: 15px; background: white; border-radius: 10px; border-left: 5px solid #17486a;">
+                                        <div id="result-text" style="color: #333; line-height: 1.5;"></div>
+                                    </div>
+                                    <div style="margin-top: 12px; font-size: 0.85rem; color: #888; font-style: italic; line-height: 1.5;">
+                                        <p style="margin: 0 0 8px 0;">
+                                            Statistical averages are based on 2019 data (pre-COVID baseline), representing the most recent stable global health snapshot.
+                                        </p>
+                                        <p style="margin: 0;">
+                                            But life isn’t just statistics, with advances in healthcare and the choices you make, you are constantly shaping your own “bonus” years.
+                                        </p>
+                                    </div>
+                            </div>
                         </div>
 
 
@@ -261,7 +283,27 @@
     <div id="horizontalDots" class="dots horizontal-dots" aria-label="Horizontal page indicator"></div>
     <div id="verticalDots" class="dots vertical-dots" aria-label="Vertical layer indicator"></div>
 
+    <div id="imageLightbox" class="image-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Expanded image viewer">
+        <div class="image-lightbox__backdrop" data-lightbox-close></div>
+        <div class="image-lightbox__panel" role="document">
+            <button type="button" class="image-lightbox__close" aria-label="Close enlarged image" data-lightbox-close>
+                ×
+            </button>
+            <div class="image-lightbox__content">
+                <img id="imageLightboxImg" class="image-lightbox__img" alt="Expanded chart">
+                <p id="imageLightboxCaption" class="image-lightbox__caption"></p>
+            </div>
+        </div>
+    </div>
+
     <!--导入JS脚本-->
     <script src="./scripts/scroll.js"></script>
+
+    <!--loading d3 folder--> 
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="./d3/genderchart.js"></script>
+    <script src="./d3/lifespanmap.js"></script>
+    <script src="./d3/rankingchart.js"></script>
+    <script src="./d3/interactivechart.js"></script>
 </body>
 </html>
