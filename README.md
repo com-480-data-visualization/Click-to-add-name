@@ -124,7 +124,7 @@ For this milestone, we have focused on building a robust foundation for our data
 ### 📌 Final Project Deliverables
 * **Interactive Data Story:** [Live Website Demo](https://com-480-data-visualization.github.io/Click-to-add-name/)
 * **Process Book:** [Download Process Book (PDF)](assets/Process_Book.pdf)
-* **Screencast Demo:** [Watch on YouTube](VIDEO_LINK_HERE)
+* **Screencast Demo:** [Watch on YouTube](https://youtu.be/PRzb-GjHek4)
 
 ### 💡 About The Final Project
 "The Longevity Equation" transforms complex global health datasets into an engaging, interactive data journalism narrative. We moved beyond static spreadsheets to uncover the hidden forces that dictate human lifespan. 
