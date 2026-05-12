@@ -167,9 +167,9 @@ Based on the current structure of our final delivery:
 * `index.html`: The main entry point for the interactive data story.
 
 ### 👥 Peer Assessment & Contributions
-* **Lin Xiaoya (423134):** Conducted data preprocessing and Exploratory Data Analysis (EDA). Authored the Milestone 2 report, the Milestone 3 Process Book, and narrative text for the website. 
-* **Liu Tingsen (422014):** Developed the foundational HTML and JavaScript architecture (scrollytelling and navigation). Authored the initial draft for Milestone 1.
-* **Wu Yiqian (423147):** Conducted related work research. Authored the initial draft for Milestone 1. Implemented the core D3.js visualizations.
+* **Lin Xiaoya (423134):** Xiaoya conducted the extensive data preprocessing and Exploratory Data Analysis (EDA) in Python. She authored the Milestone 2 report, the final Milestone 3 Process Book, Milestone 3 Screencast, readme.md on GitHub repository, and the narrative text found on the website.
+* **Liu Tingsen (422014):** Tingsen developed the custom HTML and Vanilla JS logic that powers the scrollytelling navigation. He was also responsible for drafting the initial Milestone 1 proposals.
+* **Wu Yiqian (423147):** Yiqian conducted the related work research and took charge of coding the core D3.js visualizations. She was responsible for adjusting the final structure and integrating the D3 widgets into the responsive containers.
 ---
 
 
