@@ -1,6 +1,6 @@
 /* =========================================================
-   3-1 页：Special Case — High GDP, Low Life Expectancy
-   特别功能: 静态图片的放大动画样式
+   3-1 Page: Paradox
+   Special feature: Zoom animation for static images
    ========================================================= */
 
 .page-31 {
@@ -8,7 +8,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	/* 底部留出空间备用 */
+	/* Leave space at bottom for future use */
 	padding: clamp(1.4rem, 3vw, 2.4rem) clamp(1.4rem, 3vw, 2.4rem) clamp(3.6rem, 7vh, 5.4rem);
 	gap: 1rem;
 }
@@ -19,7 +19,7 @@
 	letter-spacing: 0.02em;
 }
 
-/* 左右双栏：左侧文字区稍宽 */
+/* Two-column layout: Left text area slightly wider */
 .page-31-body {
 	flex: 1;
 	min-height: 0;
@@ -29,7 +29,7 @@
 	gap: clamp(0.9rem, 2vw, 1.4rem);
 }
 
-/* ── 左栏：文字 + 图片 ── */
+/* Left column: Text + Image */
 .page-31-analysis {
 	display: flex;
 	flex-direction: column;
@@ -37,7 +37,7 @@
 	min-height: 0;
 }
 
-/* 可内部滚动的文字卡片 */
+/* Internally scrollable text card */
 .page-31-text {
 	flex: 0 1 auto;
 	min-height: 0;
@@ -62,7 +62,7 @@
 	border-radius: 2px;
 }
 
-/* 第一段加粗引导语 */
+/* Bold intro paragraph */
 .page-31-lead {
 	margin: 0 0 0.9rem;
 	font-size: clamp(0.98rem, 1.3vw, 1.08rem);
@@ -82,33 +82,7 @@
 	margin-bottom: 0;
 }
 
-/* 图片插入区（可选，後续替換为真实圖片） */
-.page-31-figure {
-	flex-shrink: 0;
-	margin: 0;
-}
-
-.page-31-image-slot {
-	height: clamp(8rem, 17vh, 11rem);
-	border-radius: 1rem;
-	border: 1.5px dashed rgba(31, 31, 31, 0.2);
-	background: rgba(255, 255, 255, 0.52);
-	display: grid;
-	place-items: center;
-	color: var(--text-color);
-	font-size: 0.9rem;
-	opacity: 0.7;
-}
-
-.page-31-figure figcaption {
-	margin-top: 0.4rem;
-	font-size: 0.8rem;
-	opacity: 0.58;
-	text-align: center;
-	font-style: italic;
-}
-
-/* ── 右栏：两张图表上下堆叠 ── */
+/* ── Right column: Two vertically stacked charts ── */
 .page-31-charts {
 	display: flex;
 	flex-direction: column;
@@ -151,6 +125,8 @@
 	object-fit: contain;
 	border-radius: 0.55rem;
 	display: block;
+	cursor: zoom-in;
+	transition: transform 0.24s ease, filter 0.24s ease;
 }
 
 .page-31-chart-caption {
@@ -172,11 +148,6 @@
 
 .page-31-scatter-slot .page-31-chart-image {
 	object-position: center center;
-}
-
-.page-31-chart-image {
-	cursor: zoom-in;
-	transition: transform 0.24s ease, filter 0.24s ease;
 }
 
 .page-31-chart-image:hover {
@@ -296,7 +267,7 @@
 	opacity: 0;
 }
 
-/* 图表标签（右上角小标） */
+/* Chart label (top-right badge) */
 .page-31-chart-label {
 	position: absolute;
 	top: 0.62rem;
@@ -315,10 +286,6 @@
 
 	.page-31-charts {
 		flex-direction: row;
-	}
-
-	.page-31-figure {
-		display: none;
 	}
 }
 

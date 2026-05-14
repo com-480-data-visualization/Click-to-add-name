@@ -31,17 +31,8 @@
 }
 
 .chart-placeholder {
-    display: block; 
-    position: relative; 
-    background: rgba(255, 255, 255, 0.56);
-    border: 1px dashed rgba(31, 31, 31, 0.28);
-    border-radius: 0.7rem;
-    padding: 1rem;
-    height: 95%;
-    overflow: visible; 
-}
-
-.chart-placeholder {
+	position: relative;
+	overflow: visible;
 	display: grid;
 	place-items: center;
 }

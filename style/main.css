@@ -27,7 +27,7 @@ body {
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
-	/* 禁用默认触摸手势，交互由 JS 的翻页逻辑接管 */
+	/* Disable default touch gestures, interaction driven by JS page flip logic */
 	touch-action: none;
 }
 
@@ -105,9 +105,9 @@ body.footer-revealed .horizontal-dots {
 	background: var(--dot-active);
 }
 
-/* 新逻辑：仅鼠标悬停到 dot 时显示 label */
+/* Show label only when hovering over dot */
 .dot:hover::after {
-	/* active dot 旁的页面信息标签，文本来自 data-label */
+	/* Page info label next to active dot, text from data-label */
 	content: attr(data-label);
 	position: absolute;
 	padding: 0.2rem 0.4rem;
@@ -125,17 +125,7 @@ body.footer-revealed .horizontal-dots {
 	animation: dot-pulse 0.22s ease;
 }
 
-/*
-   旧逻辑：active 的纵向 dot 显示位置
-   .vertical-dots .dot.active::after {
-	top: 50%;
-	right: calc(100% + 5px);
-	left: auto;
-	transform: translateY(-50%);
-   }
-*/
-
-/* 右侧竖直 dot：标签固定显示在 dot 左侧 */
+/* Right vertical dot: Label fixed to the left of dot */
 .vertical-dots .dot:hover::after {
 	top: 50%;
 	right: calc(100% + 5px);
@@ -143,17 +133,7 @@ body.footer-revealed .horizontal-dots {
 	transform: translateY(-50%);
 }
 
-/*
-   旧逻辑：active 的横向 dot 显示位置
-   .horizontal-dots .dot.active::after {
-	top: auto;
-	bottom: calc(100% + 5px);
-	left: 50%;
-	transform: translateX(-50%);
-   }
-*/
-
-/* 底部水平 dot：标签固定显示在 dot 上方 */
+/* Bottom horizontal dot: Label fixed above dot */
 .horizontal-dots .dot:hover::after {
 	top: auto;
 	bottom: calc(100% + 5px);
@@ -161,7 +141,7 @@ body.footer-revealed .horizontal-dots {
 	transform: translateX(-50%);
 }
 
-/* 当 scroll.js 中标记为不显示标签时，仅显示 dot，不渲染文本标签 */
+/* Show dot only, no text label when hidden flag is set in scroll.js */
 .dot:hover[data-hide-label="true"]::after {
 	content: none;
 }

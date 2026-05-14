@@ -1,6 +1,6 @@
 /*
-    处理页面的滚动和翻页逻辑，支持鼠标滚轮、键盘箭头、点击 dot 和移动端手势等多种交互方式
-    以及page-31的静态图片放大功能
+    Handles page scrolling and turning logic, supporting mouse wheel, keyboard arrows, dot clicks, and mobile gestures.
+    Also handles the static image zoom feature on page-31.
 */
 
 const viewport = document.getElementById("viewport");
@@ -24,22 +24,22 @@ const transitionDuration = 560;
 let isImageLightboxOpen = false;
 const imageLightboxHideDuration = 280;
 let imageLightboxCloseTimer = null;
-// dot 的默认提示文本
-const defaultLabel = "请输入文本";
+// Default tooltip text for dots
+const defaultLabel = "default_dot_label";
 
-// 可在这里按层/按页定义标签文本
-const verticalLabels = ["Cover", "Gender", "Country & GDP", "Special Case", "Summary"];
-// 每个纵向层对应一个数组，数组元素依次对应该层的横向页标签
-// 写"null"则不显示标签
+// Label texts can be defined here by layer/page
+const verticalLabels = ["Cover", "Gender", "Country & GDP", "Paradox", "Conclusion"];
+// Each vertical layer corresponds to an array, whose elements correspond to the horizontal page labels of that layer.
+// Use "null" to not display a label.
 const horizontalLabelsByLayer = [
     ["null"],
     ["null"],
     ["Map", "Bar Chart"],
-    ["Special Case"],
+    ["null"],
     ["null"]
 ];
 
-// 将 label 标准化；返回 null 表示不显示标签
+// Normalizes the label; returns null if the label should not be displayed
 function normalizeLabel(label) {
     if (label === null || label === undefined) return null;
     const text = String(label).trim();
@@ -126,7 +126,7 @@ function hideFooter() {
     lockTransition();
 }
 
-// 统一在动画期间加锁，避免连续触发导致跳页错乱
+// Universally lock during animations to avoid sequential triggers causing page jumps
 function lockTransition() {
     isTransitioning = true;
     window.setTimeout(() => {
@@ -145,7 +145,7 @@ function openImageLightbox(imageElement) {
     imageLightboxImg.src = imageElement.src;
     imageLightboxImg.alt = imageElement.alt || "Expanded image";
     
-    // 读取标题和描述
+    // Read title and description
     const title = imageElement.dataset.title || "Image";
     const description = imageElement.dataset.description || "";
     if (imageLightboxCaption) {
@@ -176,20 +176,7 @@ function closeImageLightbox() {
     }, imageLightboxHideDuration);
 }
 
-// 纵向切换：整屏吸附到指定层
-// function goVertical(nextIndex) {
-//     if (isTransitioning) return;
-//     if (nextIndex < 0 || nextIndex >= verticalPages.length) return;
-
-//     currentVIndex = nextIndex;
-//     isFooterRevealed = false;
-//     updateViewportPosition();
-//     renderHorizontalDots();
-//     updateDots();
-//     lockTransition();
-// }
-// scripts/scroll.js
-
+// Vertical transition: snap to whole screen on the specified layer
 function goVertical(nextIndex) {
     if (isTransitioning) return;
     if (nextIndex < 0 || nextIndex >= verticalPages.length) return;
@@ -220,7 +207,7 @@ function goVertical(nextIndex) {
 
 
 
-// 横向切换：仅在当前层内左右翻页
+// Horizontal transition: flip left and right only in the current layer
 function goHorizontal(nextIndex) {
     if (isTransitioning) return;
     const currentLayer = verticalPages[currentVIndex];
@@ -249,8 +236,8 @@ function handleWheel(event) {
 
     const currentTime = Date.now();
 
-    // 如果两次滚轮/触摸板事件的间隔超过 60 毫秒，则认为上一次的滑动及惯性已经完全结束，
-    // 用户开始了新一次明确的滑动动作。
+    // If the interval between two wheel/touchpad events exceeds 40ms, the previous swipe and inertia are considered to be fully finished.
+    // The user has started a new clear swipe action => reset accumulators and restart page flip evaluation.
     if (currentTime - lastWheelTime > 40) {
         isScrollingSequence = false;
         scrollAccumulatorX = 0;
@@ -258,21 +245,21 @@ function handleWheel(event) {
     }
     lastWheelTime = currentTime;
 
-    // 如果页面正在翻页动画中，或者当前这拨滑动已经触发过翻页（正在处理惯性尾巴），则忽略后续累加
+    // If a page transition animation is playing, or this swipe sequence has already triggered a page flip (currently handling inertia tail), ignore subsequent accumulations.
     if (isTransitioning || isScrollingSequence) {
         return;
     }
 
-    // 累加位移差值
+    // Accumulate the displacement difference
     scrollAccumulatorX += event.deltaX;
     scrollAccumulatorY += event.deltaY;
 
-    // 触发翻页的位移阈值
+    // Displacement threshold to trigger a page flip
     const threshold = 40;
 
-    // 优先处理纵向滑动为主的情况
+    // Prioritize cases primarily consisting of vertical scrolling
     if (Math.abs(scrollAccumulatorY) > threshold && Math.abs(scrollAccumulatorY) > Math.abs(scrollAccumulatorX)) {
-        isScrollingSequence = true; // 马上锁定，本次手势带来的后续惯性直接无视
+        isScrollingSequence = true; // Lock immediately, ignoring any subsequent inertia from this gesture
         if (scrollAccumulatorY > 0) {
             if (currentVIndex === lastVIndex) revealFooter();
             else goVertical(currentVIndex + 1);
@@ -281,9 +268,9 @@ function handleWheel(event) {
             else goVertical(currentVIndex - 1);
         }
     } 
-    // 处理横向滑动为主的情况
+    // Handle cases where horizontal scroll acts as primary displacement
     else if (Math.abs(scrollAccumulatorX) > threshold && Math.abs(scrollAccumulatorX) > Math.abs(scrollAccumulatorY)) {
-        isScrollingSequence = true; // 马上锁定
+        isScrollingSequence = true; // Lock immediately
         if (scrollAccumulatorX > 0) {
             goHorizontal(currentHIndexByLayer[currentVIndex] + 1);
         } else {
@@ -330,21 +317,21 @@ function handleKeyDown(event) {
     }
 }
 
-// 点击右侧 dot 直接切换到对应纵向层
+// Click vertical dots on the right to switch directly to the corresponding vertical layer
 function handleVerticalDotClick(event) {
     const targetDot = event.target.closest(".dot");
     if (!targetDot) return;
     goVertical(Number(targetDot.dataset.index));
 }
 
-// 点击底部 dot 切换当前层中的横向页
+// Click horizontal dots at the bottom to switch horizontal pages in the current layer
 function handleHorizontalDotClick(event) {
     const targetDot = event.target.closest(".dot");
     if (!targetDot) return;
     goHorizontal(Number(targetDot.dataset.index));
 }
 
-// 页面内按钮也可以触发横向翻页，避免只依赖手势提示。
+// In-page buttons can also trigger horizontal page turns, avoiding sole reliance on gesture hints.
 function handleHorizontalActionClick(event) {
     if (isImageLightboxOpen) return;
 
@@ -370,7 +357,7 @@ function handleLightboxClick(event) {
     openImageLightbox(clickedImage);
 }
 
-// 移动端/平板手势：按滑动主方向决定纵向或横向翻页
+// Mobile/tablet gestures: determine vertical or horizontal turning by main direction of swipe
 function handleTouchStart(event) {
     const touch = event.changedTouches[0];
     touchStartX = touch.clientX;
@@ -409,6 +396,8 @@ function handleTouchEnd(event) {
         goVertical(currentVIndex - 1);
     }
 }
+
+// Initialization: generate dots, set initial position, and bind event listeners
 
 createDots();
 updateViewportPosition();
